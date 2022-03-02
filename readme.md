@@ -97,7 +97,7 @@ Se adjuntan al documento para su facilidad de uso
 
 * POST 
 ```
-https://quasar-t42t4ngvhq-uc.a.run.app/topsecret 
+https://quasar-t42t4ngvhq-uc.a.run.app/topsecret
 ```
 Devuelve la posición de la nave y reconstruye el mensaje recibido en las tres naves en caso de contar con la información necesaria.
 
