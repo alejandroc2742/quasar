@@ -1,0 +1,52 @@
+{"properties": [
+  {
+    "name": "position.sato.x",
+    "type": "java.lang.String",
+    "description": "A description for 'position.sato.x'"
+  },
+  {
+    "name": "position.kenobi.x",
+    "type": "java.lang.String",
+    "description": "A description for 'position.kenobi.x'"
+  },
+  {
+    "name": "position.skywalker.x",
+    "type": "java.lang.String",
+    "description": "A description for 'position.skywalker.x'"
+  },
+  {
+    "name": "position.kenobi.y",
+    "type": "java.lang.String",
+    "description": "A description for 'position.kenobi.y'"
+  },
+  {
+    "name": "position.sato.y",
+    "type": "java.lang.String",
+    "description": "A description for 'position.sato.y'"
+  },
+  {
+    "name": "position.skywalker.y",
+    "type": "java.lang.String",
+    "description": "A description for 'position.skywalker.y'"
+  },
+  {
+    "name": "satellites.number",
+    "type": "java.lang.String",
+    "description": "A description for 'satellites.number'"
+  },
+  {
+    "name": "error.satellite.not.ready",
+    "type": "java.lang.String",
+    "description": "A description for 'error.satellite.not.ready'"
+  },
+  {
+    "name": "error.name.required",
+    "type": "java.lang.String",
+    "description": "A description for 'error.name.required'"
+  },
+  {
+    "name": "error.few.satellites",
+    "type": "java.lang.String",
+    "description": "A description for 'error.few.satellites'"
+  }
+]}
