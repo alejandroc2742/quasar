@@ -1,8 +1,12 @@
 package com.meli.quasar.service.impl;
 
+import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer.Optimum;
+import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.lemmingapex.trilateration.NonLinearLeastSquaresSolver;
+import com.lemmingapex.trilateration.TrilaterationFunction;
 import com.meli.quasar.model.Position;
 import com.meli.quasar.model.SatelliteEntity;
 import com.meli.quasar.model.SatelliteList;
@@ -54,23 +58,16 @@ public class TrackerLocationServiceImpl implements TrackerLocationService {
 		return isValid;
 	}
 
-	/**
-	 * Satellite 1 = kenobi Satellite 2 = sato Satellite 3 = skywalker
-	 */
 	public Position calculateLocation() {
-		float A, B, D, E = 0;
-		double C, F = 0;
-		A = 2 * satoX - 2 * kenobiX;
-		B = 2 * satoY - 2 * kenobiY;
-		C = Math.pow(kenobi.getDistance(), 2) - Math.pow(sato.getDistance(), 2) - Math.pow(kenobiX, 2)
-				+ Math.pow(satoX, 2) - Math.pow(kenobiY, 2) + Math.pow(satoY, 2);
-		D = 2 * skywalkerX - 2 * satoX;
-		E = 2 * skywalkerY - 2 * satoY;
-		F = Math.pow(sato.getDistance(), 2) - Math.pow(skywalker.getDistance(), 2) - Math.pow(satoX, 2)
-				+ Math.pow(skywalkerX, 2) - Math.pow(satoY, 2) + Math.pow(skywalkerY, 2);
-		double x = (C * E - F * B) / (E * A - B * D);
-		double y = (C * D - A * F) / (B * D - A * E);
-		return new Position(x, y);
+
+		double[][] positions = new double[][] { { kenobiX, kenobiY }, { satoX, satoY }, { skywalkerX, skywalkerY } };
+		double[] distances = new double[] { kenobi.getDistance(), sato.getDistance(), skywalker.getDistance() };
+
+		NonLinearLeastSquaresSolver solver = new NonLinearLeastSquaresSolver(
+				new TrilaterationFunction(positions, distances), new LevenbergMarquardtOptimizer());
+		Optimum optimum = solver.solve();
+		double[] centroid = optimum.getPoint().toArray();
+		return new Position(centroid[0], centroid[1]);
 	}
 
 	private void initSatellites(SatelliteList satelliteList) throws TrackerException {
